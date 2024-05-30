@@ -1,11 +1,16 @@
 package sem.sem;
 
-import sem.usuarios.Cliente;
-
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Estacionamiento {
-    private Cliente cliente;
-    private LocalDateTime inicio;
-    private LocalDateTime fin;
+    final String patente;
+    final LocalTime inicio;
+    private LocalTime fin;
+
+    public Estacionamiento(String patente, LocalTime inicio, LocalTime fin) {
+        this.patente = patente;
+        this.inicio = inicio;
+        this.fin = fin;
+    }
 }
+
