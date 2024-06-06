@@ -2,6 +2,6 @@ package sem.usuarios;
 
 import sem.sem.ZonaDeEstacionamiento;
 
-public class Inspector extends Usuario {
+public class Inspector {
     private ZonaDeEstacionamiento zona;
 }

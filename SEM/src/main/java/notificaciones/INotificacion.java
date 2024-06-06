@@ -1,5 +1,5 @@
 package sem.notificaciones;
 
-public interface Notificacion {
+public interface INotificacion {
     String informar();
 }

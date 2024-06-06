@@ -1,7 +1,5 @@
 package sem.sem;
 
-import sem.usuarios.Cliente;
-
 public class PuntoDeVenta {
     private ZonaDeEstacionamiento zona;
     private SEM sem;
