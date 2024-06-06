@@ -1,15 +1,13 @@
 package sistema;
 
-import notificaciones.CargaCredito;
-
 public class PuntoDeVenta {
-    private final ZonaDeEstacionamiento zona;
+    private final SEM sem;
 
-    public PuntoDeVenta(ZonaDeEstacionamiento zona) {
-        this.zona = zona;
+    public PuntoDeVenta(SEM sem) {
+        this.sem = sem;
     }
 
     public void cargarCredito(String numeroTel, Double credito) {
-        zona.getNotificador().notificar(numeroTel, new CargaCredito(credito));
+        sem.cargarCredito(numeroTel, credito);
     }
 }

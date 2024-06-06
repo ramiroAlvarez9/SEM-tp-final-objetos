@@ -3,6 +3,7 @@ package estacionamientos;
 import notificaciones.FinEstacionamiento;
 import notificaciones.INotificacion;
 import notificaciones.Notificador;
+import sistema.SEM;
 
 import java.time.LocalTime;
 
@@ -13,7 +14,7 @@ public class EstacionamientoApp extends Estacionamiento {
 
     public EstacionamientoApp(Notificador notificador, String patente, String numeroTel) {
         super(notificador, patente);
-        this.fin = getFinHorario();
+        this.fin = getFinHorario(); // TODO: usar horario fin dependiendo del credito
         this.numeroTel = numeroTel;
     }
 
@@ -21,8 +22,10 @@ public class EstacionamientoApp extends Estacionamiento {
         return numeroTel;
     }
 
-    public void finalizar(Notificador notificador){
+    @Override
+    public void finalizar(SEM sem, Notificador notificador){
         setFin(LocalTime.now());
+        sem.restarCredito(numeroTel, costo());
 
         INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
         notificador.notificar(numeroTel, INotificacion);

@@ -4,25 +4,38 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Notificador {
-    private HashMap<String, HashSet<INotificado>> notificados;
+    private HashSet<INotificado> entidades;
+    private HashMap<String, HashSet<INotificado>> aplicaciones;
 
     public Notificador() {
-        this.notificados = new HashMap<>();
+        this.entidades = new HashSet<>();
+        this.aplicaciones = new HashMap<>();
+    }
+
+    public void suscribir(INotificado notificado) {
+        entidades.add(notificado);
     }
 
     public void suscribir(String patenteONumero, INotificado notificado) {
-        // Notificador empieza vacio {}
-        // Si es el primer suscriptor de una patente o numero, y no existe una lista
-        // asociada, entonces creamos una
-        notificados.computeIfAbsent(patenteONumero, k -> new HashSet<>()).add(notificado);
+        aplicaciones.computeIfAbsent(patenteONumero, k -> new HashSet<>()).add(notificado);
+    }
+
+    public void desuscribir(INotificado notificado) {
+        entidades.remove(notificado);
     }
 
     public void desuscribir(String patenteONumero, INotificado notificado) {
-        notificados.getOrDefault(patenteONumero, new HashSet<>()).remove(notificado);
+        aplicaciones.getOrDefault(patenteONumero, new HashSet<>()).remove(notificado);
+    }
+
+    public void notificar(INotificacion notificacion) {
+        for(INotificado entidad : entidades) {
+            entidad.update(notificacion);
+        }
     }
 
     public void notificar(String patenteONumero, INotificacion notificacion) {
-        HashSet<INotificado> notificadosFiltrados = notificados.getOrDefault(patenteONumero, new HashSet<>());
+        HashSet<INotificado> notificadosFiltrados = aplicaciones.getOrDefault(patenteONumero, new HashSet<>());
         for(INotificado notificado : notificadosFiltrados) {
             notificado.update(notificacion);
         }

@@ -4,6 +4,7 @@ import notificaciones.FinEstacionamiento;
 import notificaciones.INotificacion;
 import notificaciones.InicioEstacionamiento;
 import notificaciones.Notificador;
+import sistema.SEM;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -59,7 +60,7 @@ public abstract class Estacionamiento {
         this.fin = calcularHorarioFin(tiempo);
     }
 
-    public void finalizar(Notificador notificador) {
+    public void finalizar(SEM _sem, Notificador notificador) {
         INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
         notificador.notificar(patente, INotificacion);
     }

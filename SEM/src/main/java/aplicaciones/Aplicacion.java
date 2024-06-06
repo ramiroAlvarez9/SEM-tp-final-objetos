@@ -2,37 +2,38 @@ package aplicaciones;
 
 import notificaciones.*;
 import sistema.SEM;
-import sistema.ZonaDeEstacionamiento;
-
-import java.awt.*;
 
 public class Aplicacion implements MovementSensor, INotificado {
     private final SEM sem;
     private final String patente;
     private final String numeroTel;
-    private Double credito;
 
     public Aplicacion(SEM sem, String patente, String numeroTel) {
         this.sem = sem;
         this.patente = patente;
         this.numeroTel = numeroTel;
-        this.credito = 0.0;
-    }
 
-    public Point obtenerUbicacion() {
-        return new Point(1, 1);
-    }
-
-    public ZonaDeEstacionamiento miZona() {
-        return sem.encontrarZona(this.obtenerUbicacion());
+        sem.registrarApp(this);
     }
 
     public void iniciarEstacionamiento() {
-        miZona().registrarEstacionamiento(patente, numeroTel);
+        sem.registrarEstacionamiento(patente, numeroTel);
     }
 
     public void finalizarEstacionamiento() {
-        miZona().finalizarEstacionamiento(numeroTel);
+        sem.finalizarEstacionamiento(numeroTel);
+    }
+
+    public Double getCredito() {
+        return sem.getCredito(numeroTel);
+    }
+
+    public String getNumeroTel() {
+        return numeroTel;
+    }
+
+    public String getPatente() {
+        return patente;
     }
 
     @Override
@@ -47,21 +48,17 @@ public class Aplicacion implements MovementSensor, INotificado {
 
     @Override
     public void update(INotificacion notificacion) {
+        // solo notifica en modo automatico?
         switch (notificacion) {
-            case CargaCredito cargaCredito -> {
-                this.credito = cargaCredito.getCredito();
-            }
-
             case InicioEstacionamiento inicioEstacionamiento -> {
                 inicioEstacionamiento.informar();
             }
 
             case FinEstacionamiento finEstacionamiento -> {
-                this.credito = this.credito - finEstacionamiento.getCosto();
                 finEstacionamiento.informar();
             }
 
-            default -> throw new IllegalStateException("Imposible");
+            default -> notificacion.informar();
         }
 
     }
