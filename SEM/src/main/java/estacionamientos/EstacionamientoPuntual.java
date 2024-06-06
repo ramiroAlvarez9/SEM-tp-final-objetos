@@ -1,9 +1,10 @@
-package sem.estacionamientos;
+package estacionamientos;
+
+import notificaciones.Notificador;
 
 public class EstacionamientoPuntual extends Estacionamiento{
-
-    public EstacionamientoPuntual(String patente, int horas) {
-        super(patente);
+    public EstacionamientoPuntual(Notificador notificador, String patente, int horas) {
+        super(notificador, patente);
         this.fin = calcularHorarioFin(calcularTiempoDentroDe(horas));
     }
 }

@@ -1,15 +1,13 @@
-package sem.sem;
+package sistema;
 
+import java.awt.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 
 public class SEM {
-    static final double precioPorHora = 40;
-    static final LocalTime inicioHorario = LocalTime.of(7, 0);
-    static final LocalTime finHorario = LocalTime.of(20, 0);
+    private static final double precioPorHora = 40;
+    private static final LocalTime inicioHorario = LocalTime.of(7, 0);
+    private static final LocalTime finHorario = LocalTime.of(20, 0);
 
     private HashSet<ZonaDeEstacionamiento> zonas;
 
@@ -23,5 +21,14 @@ public class SEM {
 
     public static LocalTime getFinHorario() {
         return finHorario;
+    }
+
+    public static double getPrecioPorHora() {
+        return precioPorHora;
+    }
+
+    public ZonaDeEstacionamiento encontrarZona(Point coord) {
+        // filtrar zona por coordenar
+        return zonas.stream().findAny().orElseThrow();
     }
 }

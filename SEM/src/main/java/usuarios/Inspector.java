@@ -1,6 +1,6 @@
-package sem.usuarios;
+package usuarios;
 
-import sem.sem.ZonaDeEstacionamiento;
+import sistema.ZonaDeEstacionamiento;
 
 public class Inspector {
     private ZonaDeEstacionamiento zona;

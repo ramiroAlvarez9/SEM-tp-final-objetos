@@ -1,2 +1,5 @@
-package notificaciones;public interface INotificado {
+package notificaciones;
+
+public interface INotificado {
+    void update(INotificacion notificacion);
 }

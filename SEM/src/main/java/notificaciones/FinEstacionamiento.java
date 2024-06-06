@@ -1,15 +1,23 @@
-package sem.notificaciones;
+package notificaciones;
 
 import java.time.LocalTime;
 
 public class FinEstacionamiento implements INotificacion {
-    final LocalTime horaFin;
+    private final String patente;
+    private final LocalTime horaFin;
+    private final Double costo;
 
-    public FinEstacionamiento(LocalTime horaFin) {
+    public FinEstacionamiento(String patente, LocalTime horaFin, Double costo) {
+        this.patente = patente;
         this.horaFin = horaFin;
+        this.costo = costo;
     }
 
-    public String informar() {
-        return "EWA-312 dejó de estacionar a las 12:43 PM y bla bla";
+    public Double getCosto() {
+        return costo;
+    }
+
+    public void informar() {
+        System.out.printf("%s se terminó su estacionamiento a las %s.", patente, horaFin);
     }
 }

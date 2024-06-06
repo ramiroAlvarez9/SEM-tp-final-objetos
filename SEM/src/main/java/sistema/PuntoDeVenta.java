@@ -1,16 +1,15 @@
-package sem.sem;
+package sistema;
+
+import notificaciones.CargaCredito;
 
 public class PuntoDeVenta {
-    private ZonaDeEstacionamiento zona;
-    private SEM sem;
+    private final ZonaDeEstacionamiento zona;
 
-    public void registrarEstacionamiento(String patente, int horas) {
-        sem.registrarEstacionamiento(patente, horas);
+    public PuntoDeVenta(ZonaDeEstacionamiento zona) {
+        this.zona = zona;
     }
 
-    public void cargarCredito(String numeroTel, float credito) throws Exception {
-        Cliente cliente = sem.obtenerClienteSegunNumeroTel(numeroTel);
-        cliente.cargarCredito(credito);
+    public void cargarCredito(String numeroTel, Double credito) {
+        zona.getNotificador().notificar(numeroTel, new CargaCredito(credito));
     }
-
 }

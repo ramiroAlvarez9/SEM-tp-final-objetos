@@ -1,5 +1,5 @@
-package sem.notificaciones;
+package notificaciones;
 
 public interface INotificacion {
-    String informar();
+    void informar();
 }
