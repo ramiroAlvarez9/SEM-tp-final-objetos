@@ -64,6 +64,10 @@ public abstract class Estacionamiento {
         INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
         notificador.notificar(patente, INotificacion);
     }
+    
+    public boolean enCurso() {
+    	return LocalTime.now().isAfter(this.fin);
+    }
   
 
 }

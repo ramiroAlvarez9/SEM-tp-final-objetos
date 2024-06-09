@@ -104,4 +104,20 @@ public class SEM {
         }
         this.estacionamientos = new HashSet<>();
     }
+    
+    public Estacionamiento estacionamientoConPatente(String patente) {
+    	
+    	Estacionamiento e = this.estacionamientos.stream()
+                .filter(es -> Objects.equals(es.getPatente(), patente))
+                .findAny()
+                .orElseThrow();
+    	
+    	return e;
+    }
+    
+    
+    
+    
+    
+    
 }
