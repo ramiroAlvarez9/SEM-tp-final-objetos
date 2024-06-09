@@ -1,5 +1,8 @@
 package aplicaciones;
 
+import modos.Modo;
+import modos.ModoAutomatico;
+import modos.ModoManual;
 import notificaciones.*;
 import sistema.SEM;
 
@@ -7,21 +10,22 @@ public class Aplicacion implements MovementSensor, INotificado {
     private final SEM sem;
     private final String patente;
     private final String numeroTel;
+    private Modo modo;
 
     public Aplicacion(SEM sem, String patente, String numeroTel) {
         this.sem = sem;
         this.patente = patente;
         this.numeroTel = numeroTel;
-
-        sem.registrarApp(this);
+        this.modo      = new ModoManual();
+        sem.registrarApp(this);        
     }
 
     public void iniciarEstacionamiento() {
-        sem.registrarEstacionamiento(patente, numeroTel);
+        modo.iniciarEstacionamiento(this);
     }
 
     public void finalizarEstacionamiento() {
-        sem.finalizarEstacionamiento(numeroTel);
+        modo.finalizarEstacionamiento(this);
     }
 
     public Double getCredito() {
@@ -35,7 +39,16 @@ public class Aplicacion implements MovementSensor, INotificado {
     public String getPatente() {
         return patente;
     }
+    
+    public SEM getSem() {
+    	return this.sem;
+    }
+    public void setModoAplicacion(Modo modo) {
+    	this.modo = modo; 
 
+    }
+    
+   
     @Override
     public void driving() {
 
