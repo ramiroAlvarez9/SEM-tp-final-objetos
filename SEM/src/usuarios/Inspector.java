@@ -27,12 +27,9 @@ public class Inspector {
     }
     
     public void cargarInfraccionPara(String patente, ZonaDeEstacionamiento zona) {
-    	
-    	if ( !(this.consultaEstacionamientoVigente(patente) )  ) {
     		
     		Infraccion i = new Infraccion(zona, this, patente);
     		infracciones.add(i);
     	 
-    	}
     }
 }
