@@ -17,10 +17,12 @@ public abstract class Estacionamiento {
     protected final String patente;
     private final LocalTime inicio;
     protected LocalTime fin;
+    protected EstadoDeEstacionamiento estado;
 
     public Estacionamiento(Notificador notificador, String patente) {
         this.patente = patente;
         this.inicio = LocalTime.now();
+        this.estado = EstadoDeEstacionamiento.Vigente;
 
         INotificacion INotificacion = new InicioEstacionamiento(patente, inicio);
         notificador.notificar(patente, INotificacion);
@@ -31,15 +33,6 @@ public abstract class Estacionamiento {
     }
 
     public LocalTime calcularHorarioFin(LocalTime tiempo) {
-        /*
-         esto es equivalente a:
-         if(tiempo.isAfter(finHorario)) {
-             return finHorario;
-         } else {
-             return tiempo;
-         }
-        */
-
         LocalTime finHorarioSEM = getFinHorario();
         return tiempo.isAfter(finHorarioSEM) ? finHorarioSEM : tiempo;
     }
@@ -63,10 +56,11 @@ public abstract class Estacionamiento {
     public void finalizar(SEM _sem, Notificador notificador) {
         INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
         notificador.notificar(patente, INotificacion);
+        this.estado = EstadoDeEstacionamiento.NoVigente;
     }
     
-    public boolean enCurso() {
-    	return LocalTime.now().isAfter(this.fin);
+    public boolean esVigente() {
+    	return this.estado == EstadoDeEstacionamiento.Vigente;
     }
   
 

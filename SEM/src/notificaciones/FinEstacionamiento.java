@@ -18,6 +18,6 @@ public class FinEstacionamiento implements INotificacion {
     }
 
     public void informar() {
-        System.out.printf("%s se terminó su estacionamiento a las %s.", patente, horaFin);
+        System.out.printf("%s terminó su estacionamiento a las %s.\n", patente, horaFin);
     }
 }

@@ -1,4 +1,5 @@
 package usuarios;
+
 import java.time.*;
 import sistema.*;
 
@@ -37,9 +38,4 @@ public class Infraccion {
 	public String getPatente() {
 		return patente;
 	}
-	
-	
-	
-	
-	
 }

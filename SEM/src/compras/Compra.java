@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public abstract class Compra {
+    static int lastID = 0;
     protected int numControl;
     protected LocalDate fecha;
     protected LocalTime hora;
 
-    // Constructor
-    public Compra(int numControl, LocalDate fecha, LocalTime hora) {
-        this.numControl = numControl;
+    public Compra(LocalDate fecha, LocalTime hora) {
+        this.numControl = lastID++;
         this.fecha = fecha;
         this.hora = hora;
     }

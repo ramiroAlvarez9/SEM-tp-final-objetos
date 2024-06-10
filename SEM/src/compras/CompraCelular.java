@@ -7,12 +7,8 @@ public class CompraCelular extends Compra {
 	private String numeroTel;
 	private double monto;
 
-	public CompraCelular(int numControl, LocalDate fecha, LocalTime hora, String numeroTel, double monto) {
-		super(numControl, fecha, hora);
-		
-		this.numControl = numControl;
-		this.fecha = fecha;
-		this.hora = hora;
+	public CompraCelular(LocalDate fecha, LocalTime hora, String numeroTel, double monto) {
+		super(fecha, hora);
 		this.numeroTel = numeroTel;
 		this.monto = monto;
 	}

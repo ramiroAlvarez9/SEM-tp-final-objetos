@@ -13,7 +13,6 @@ import sistema.*;
 import estacionamientos.EstacionamientoApp;
 
 
-
 class InspectorTest {
 
 	private Inspector inspector;
@@ -23,19 +22,24 @@ class InspectorTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 760fa36c4ec614305fb69683c10f03d6fb4b5047
 		estacionamiento = mock(EstacionamientoApp.class);
 		sem = mock(SEM.class);
 		inspector = new Inspector(sem);
 		zona = mock(ZonaDeEstacionamiento.class);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 760fa36c4ec614305fb69683c10f03d6fb4b5047
 	}
 
 	@Test
 	void testEstacionamientoConPatente_EstaVigente() {
-		
 		when(sem.estacionamientoConPatente("123")).thenReturn(estacionamiento);
-		when(estacionamiento.enCurso()).thenReturn(true);
+		when(estacionamiento.esVigente()).thenReturn(true);
 		
 		boolean respuesta = inspector.consultaEstacionamientoVigente("123");
 		
@@ -44,9 +48,8 @@ class InspectorTest {
 	
 	@Test
 	void testEstacionamientoConPatente_NoEstaVigente() {
-		
 		when(sem.estacionamientoConPatente("123")).thenReturn(estacionamiento);
-		when(estacionamiento.enCurso()).thenReturn(false);
+		when(estacionamiento.esVigente()).thenReturn(false);
 		
 		boolean respuesta = inspector.consultaEstacionamientoVigente("123");
 		
@@ -55,7 +58,6 @@ class InspectorTest {
 	
 	@Test
 	void testPatenteRecibioInfraccion() {
-		
 		inspector.cargarInfraccionPara("123", zona);
 		Infraccion infraccion = inspector.getInfracciones().get(0);
 		
@@ -68,7 +70,10 @@ class InspectorTest {
 		assertEquals(infraccion.getInspector(), inspector);
 		
 		assertEquals(inspector.getInfracciones().size(), 1);
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 760fa36c4ec614305fb69683c10f03d6fb4b5047
 	}
 
 }

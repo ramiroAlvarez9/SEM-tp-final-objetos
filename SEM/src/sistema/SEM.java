@@ -62,17 +62,14 @@ public class SEM {
         this.creditos.put(numeroTel, getCredito(numeroTel) - costo);
     }
 
+    public LocalTime calcularTiempoFinDe(String patente) {
+        Double credito = this.getCredito(patente);
+        return LocalTime.now().plusHours((long) (credito / precioPorHora));
+    }
+
     public ZonaDeEstacionamiento encontrarZona(Point coord) {
         // filtrar zona por coordenar
         return zonas.stream().findAny().orElseThrow();
-    }
-
-
-    public Stream<EstacionamientoApp> obtenerEstacionamientosApp() {
-        return estacionamientos
-                .stream()
-                .filter(EstacionamientoApp.class::isInstance)
-                .map(e -> (EstacionamientoApp) e);
     }
 
     public void registrarEstacionamiento(String patente, int horas) {
@@ -81,43 +78,49 @@ public class SEM {
         estacionamientos.add(e);
     }
 
-    public void registrarEstacionamiento(String patente, String numeroTel) {
+    public void registrarEstacionamiento(Aplicacion app) {
         // esto es desde la app
-        Estacionamiento e = new EstacionamientoApp(notificador, patente, numeroTel);
-        estacionamientos.add(e);
+        if(!this.hayEstacionamientoVigente(app.getPatente())) {
+            Estacionamiento e = new EstacionamientoApp(notificador, app);
+            estacionamientos.add(e);
+        }
     }
 
     public void finalizarEstacionamiento(String numeroTel) {
         // esto es para la app
-        EstacionamientoApp e = obtenerEstacionamientosApp()
+        EstacionamientoApp e = estacionamientosAppVigentes()
                 .filter(es -> Objects.equals(es.getNumeroTel(), numeroTel))
                 .findAny()
                 .orElseThrow();
 
         e.finalizar(this, notificador);
-        estacionamientos.remove(e);
     }
 
     public void finalizarTodosLosEstacionamientos() {
-        for(Estacionamiento e : estacionamientos) {
-            e.finalizar(this, notificador);
-        }
-        this.estacionamientos = new HashSet<>();
+        estacionamientosVigentes().forEach(e -> e.finalizar(this, notificador));
     }
-    
+
+    public Stream<Estacionamiento> estacionamientosVigentes() {
+        return estacionamientos.stream()
+                .filter(Estacionamiento::esVigente);
+    }
+
+    public Stream<EstacionamientoApp> estacionamientosAppVigentes() {
+        return estacionamientosVigentes()
+                .filter(EstacionamientoApp.class::isInstance)
+                .map(e -> (EstacionamientoApp) e);
+    }
+
+    public boolean hayEstacionamientoVigente(String patente) {
+        return estacionamientos.stream()
+                .anyMatch(es -> Objects.equals(es.getPatente(), patente));
+    }
+
     public Estacionamiento estacionamientoConPatente(String patente) {
-    	
-    	Estacionamiento e = this.estacionamientos.stream()
+    	return estacionamientosVigentes()
                 .filter(es -> Objects.equals(es.getPatente(), patente))
                 .findAny()
                 .orElseThrow();
-    	
-    	return e;
     }
-    
-    
-    
-    
-    
     
 }
