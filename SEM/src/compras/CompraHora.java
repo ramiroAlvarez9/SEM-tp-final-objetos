@@ -4,15 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class CompraHora extends Compra {
-
 	private int cantHoras;
 
-	public CompraHora(int numControl, LocalDate fecha, LocalTime hora, int cantHoras) {
-		super(numControl, fecha, hora);
-
-		this.numControl = numControl;
-		this.fecha = fecha;
-		this.hora = hora;
+	public CompraHora(LocalDate fecha, LocalTime hora, int cantHoras) {
+		super(fecha, hora);
 		this.cantHoras = cantHoras;
 	}
 

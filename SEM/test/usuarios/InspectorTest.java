@@ -10,7 +10,6 @@ import sistema.*;
 import estacionamientos.EstacionamientoApp;
 
 
-
 class InspectorTest {
 
 	private Inspector inspector;
@@ -19,21 +18,17 @@ class InspectorTest {
 	private ZonaDeEstacionamiento zona;
 	
 	@BeforeEach
-	void setUp() throws Exception 
-	{
+	void setUp() throws Exception {
 		estacionamiento = mock(EstacionamientoApp.class);
 		sem = mock(SEM.class);
 		inspector = new Inspector(sem);
 		zona = mock(ZonaDeEstacionamiento.class);
-		
-		
 	}
 
 	@Test
 	void testEstacionamientoConPatente_EstaVigente() {
-		
 		when(sem.estacionamientoConPatente("123")).thenReturn(estacionamiento);
-		when(estacionamiento.enCurso()).thenReturn(true);
+		when(estacionamiento.esVigente()).thenReturn(true);
 		
 		boolean respuesta = inspector.consultaEstacionamientoVigente("123");
 		
@@ -42,9 +37,8 @@ class InspectorTest {
 	
 	@Test
 	void testEstacionamientoConPatente_NoEstaVigente() {
-		
 		when(sem.estacionamientoConPatente("123")).thenReturn(estacionamiento);
-		when(estacionamiento.enCurso()).thenReturn(false);
+		when(estacionamiento.esVigente()).thenReturn(false);
 		
 		boolean respuesta = inspector.consultaEstacionamientoVigente("123");
 		
@@ -53,11 +47,9 @@ class InspectorTest {
 	
 	@Test
 	void testPatenteRecibioInfraccion() {
-		
 		inspector.cargarInfraccionPara("123", zona);
 		
 		assertEquals(inspector.getInfracciones().size(), 1);
-	
 	}
 
 }

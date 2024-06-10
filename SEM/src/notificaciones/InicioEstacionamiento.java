@@ -12,7 +12,7 @@ public class InicioEstacionamiento implements INotificacion {
     }
 
     public void informar() {
-        System.out.printf("%s se estacionó a las %s", patente, horaInicio);
+        System.out.printf("%s se estacionó a las %s\n", patente, horaInicio);
     }
 
 }
