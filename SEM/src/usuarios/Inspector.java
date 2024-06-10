@@ -23,12 +23,16 @@ public class Inspector {
 	}
 
     public boolean consultaEstacionamientoVigente(String patente) {
-    
     	return this.getSem().estacionamientoConPatente(patente).enCurso();
     }
     
     public void cargarInfraccionPara(String patente, ZonaDeEstacionamiento zona) {
-    	Infraccion i = new Infraccion(zona, this, patente);
-    	infracciones.add(i);
+    	
+    	if ( !(this.consultaEstacionamientoVigente(patente) )  ) {
+    		
+    		Infraccion i = new Infraccion(zona, this, patente);
+    		infracciones.add(i);
+    	 
+    	}
     }
 }
