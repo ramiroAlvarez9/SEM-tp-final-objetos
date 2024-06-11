@@ -20,7 +20,7 @@ public class EstacionamientoApp extends Estacionamiento {
     public String getNumeroTel() {
         return numeroTel;
     }
-
+    
     @Override
     public void finalizar(SEM sem, Notificador notificador){
         setFin(LocalTime.now());
@@ -29,6 +29,7 @@ public class EstacionamientoApp extends Estacionamiento {
         this.estado = EstadoDeEstacionamiento.NoVigente;
         INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
         notificador.notificar(numeroTel, INotificacion);
+     
     }
 
 }

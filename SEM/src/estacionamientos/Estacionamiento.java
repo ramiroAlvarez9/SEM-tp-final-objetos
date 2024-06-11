@@ -48,12 +48,16 @@ public abstract class Estacionamiento {
     public LocalTime getInicio() {
         return inicio;
     }
+    
+    public LocalTime getFin() {
+    	return fin;
+    }
 
     public void setFin(LocalTime tiempo) {
         this.fin = calcularHorarioFin(tiempo);
     }
 
-    public void finalizar(SEM _sem, Notificador notificador) {
+    public void finalizar(SEM sem, Notificador notificador) {
         INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
         notificador.notificar(patente, INotificacion);
         this.estado = EstadoDeEstacionamiento.NoVigente;

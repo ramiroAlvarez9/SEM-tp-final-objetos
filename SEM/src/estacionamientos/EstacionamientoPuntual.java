@@ -3,8 +3,11 @@ package estacionamientos;
 import notificaciones.Notificador;
 
 public class EstacionamientoPuntual extends Estacionamiento{
-    public EstacionamientoPuntual(Notificador notificador, String patente, int horas) {
+    
+	public EstacionamientoPuntual(Notificador notificador, String patente, int horas) {
         super(notificador, patente);
-        this.fin = calcularHorarioFin(calcularTiempoDentroDe(horas));
+        this.fin = calcularTiempoDentroDe(horas);
     }
+	
+	
 }
