@@ -11,8 +11,12 @@ public class Notificador {
         this.entidades = new HashSet<>();
         this.aplicaciones = new HashMap<>();
     }
+   
+    public HashSet<INotificado> getEntidades() {
+		return entidades;
+	}
 
-    public void suscribir(INotificado notificado) {
+	public void suscribir(INotificado notificado) {
         entidades.add(notificado);
     }
 
