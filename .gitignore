@@ -34,5 +34,6 @@ replay_pid*
 # JDT-specific (Eclipse Java Development Tools)
 /.classpath
 
-
+/.settings
+/settings/
 /bin/
