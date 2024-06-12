@@ -20,5 +20,11 @@ public class PuntoDeVenta {
         CompraCelular nuevaCompra = new CompraCelular(LocalDate.now(), LocalTime.now(),numeroTel, monto, this);
         comprasRealizadas.add(nuevaCompra);
     }
+    
+    public void registrarEstacionamiento(String patente, int horas) {
+    	sem.registrarEstacionamiento(patente, horas);
+    	CompraHora nuevaCompra = new CompraHora(LocalDate.now(), LocalTime.now(), horas, this);
+    	comprasRealizadas.add(nuevaCompra);
+    }
 
 }
