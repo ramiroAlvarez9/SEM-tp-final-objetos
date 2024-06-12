@@ -12,4 +12,12 @@ public class ZonaDeEstacionamiento {
         this.puntoDeVentas = puntosDeVenta;
         this.inspectores   = inspectores;
     }
+
+	public HashSet<Inspector> getInspectores() {
+		return inspectores;
+	}
+
+	public HashSet<PuntoDeVenta> getPuntoDeVentas() {
+		return puntoDeVentas;
+	}
 }
