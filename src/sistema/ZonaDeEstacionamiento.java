@@ -4,9 +4,12 @@ import usuarios.Inspector;
 import java.util.HashSet;
 
 public class ZonaDeEstacionamiento {
-    private HashSet<PuntoDeVenta> puntoDeVentas;
+	
+	private HashSet<Inspector>    inspectores   = new HashSet<>();
+    private HashSet<PuntoDeVenta> puntoDeVentas = new HashSet<>();
 
-    public ZonaDeEstacionamiento(HashSet<Inspector> inspectores) {
-        this.puntoDeVentas = new HashSet<>();
+    public ZonaDeEstacionamiento(HashSet<PuntoDeVenta> puntosDeVenta,HashSet<Inspector> inspectores) {
+        this.puntoDeVentas = puntosDeVenta;
+        this.inspectores   = inspectores;
     }
 }

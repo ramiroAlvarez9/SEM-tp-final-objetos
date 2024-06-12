@@ -23,7 +23,7 @@ public class PuntoDeVenta {
 	}
 
 	public void registrarEstacionamiento(String patente, int horas) {
-		sem.registrarEstacionamiento(patente, horas);
+		sem.registrarEstacionamientoDesdeCompraPuntual(patente, horas);
 		CompraHora nuevaCompra = new CompraHora(LocalDate.now(), LocalTime.now(), horas, this);
 		comprasRealizadas.add(nuevaCompra);
 	}
