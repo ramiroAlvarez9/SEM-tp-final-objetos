@@ -63,6 +63,5 @@ class NotificadorTestCase {
 	
 		verify(app, never()).update(notificacion);	
 	}
-	
 
 }

@@ -4,7 +4,7 @@ import aplicaciones.Aplicacion;
 import estacionamientos.Estacionamiento;
 import estacionamientos.EstacionamientoApp;
 import estacionamientos.EstacionamientoPuntual;
-import notificaciones.CargaCredito;
+import notificaciones.NotificacionCargaCredito;
 import notificaciones.Notificador;
 
 import java.awt.*;
@@ -55,7 +55,7 @@ public class SEM {
 
     public void cargarCredito(String numeroTel, Double credito) {
         creditos.put(numeroTel, getCredito(numeroTel) + credito);
-        notificador.notificar(new CargaCredito(credito));
+        notificador.notificar(new NotificacionCargaCredito(credito));
     }
 
     public void restarCredito(String numeroTel, Double costo) {
