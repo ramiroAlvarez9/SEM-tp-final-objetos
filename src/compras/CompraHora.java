@@ -12,9 +12,12 @@ public class CompraHora extends Compra {
 		super(fecha, hora, puntoDeVenta);
 		this.cantHoras = cantHoras;
 	}
-
+	@Override
 	public int getCantHoras() {
 		return this.cantHoras;
 	}
+
+
+	
 
 }

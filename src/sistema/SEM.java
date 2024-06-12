@@ -72,7 +72,7 @@ public class SEM {
         return zonas.stream().findAny().orElseThrow();
     }
 
-    public void registrarEstacionamiento(String patente, int horas) {
+    public void registrarEstacionamientoDesdeCompraPuntual(String patente, int horas) {
         // esto es para compra fija
         Estacionamiento e = new EstacionamientoPuntual(notificador, patente, horas);
         estacionamientos.add(e);
