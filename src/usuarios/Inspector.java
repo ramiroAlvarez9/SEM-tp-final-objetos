@@ -27,9 +27,7 @@ public class Inspector {
     }
     
     public void cargarInfraccionPara(String patente, ZonaDeEstacionamiento zona) {
-    		
     		Infraccion i = new Infraccion(zona, this, patente);
     		infracciones.add(i);
-    	 
     }
 }

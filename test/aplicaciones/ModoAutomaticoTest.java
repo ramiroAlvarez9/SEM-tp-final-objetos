@@ -7,6 +7,8 @@ import sistema.SEM;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ModoAutomaticoTest {
+	
+	
     @Test
     public void testModoAutomatico() {
         SEM sem = new SEM();
