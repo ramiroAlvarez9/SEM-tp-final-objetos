@@ -48,7 +48,10 @@ public class SEM {
         notificador.suscribir(app.getNumeroTel(), app);
         notificador.suscribir(app.getPatente(), app);
     }
-
+    public HashMap<String, Double> getApps() {
+    	return this.creditos; 
+    }
+    
     public Double getCredito(String numeroTel) {
         return creditos.get(numeroTel);
     }
@@ -62,9 +65,12 @@ public class SEM {
         this.creditos.put(numeroTel, getCredito(numeroTel) - costo);
     }
 
-    public LocalTime calcularTiempoFinDe(String patente) {
-        Double credito = this.getCredito(patente);
-        return LocalTime.now().plusHours((long) (credito / precioPorHora));
+    public LocalTime calcularTiempoFinDe(String numeroTel) {
+    	
+        Double credito = this.getCredito(numeroTel);
+        LocalTime tiempoCalculado = LocalTime.now().plusHours((long) (credito / precioPorHora));
+        
+        return tiempoCalculado;
     }
 
     public ZonaDeEstacionamiento encontrarZona(Point coord) {
@@ -80,10 +86,15 @@ public class SEM {
 
     public void registrarEstacionamiento(Aplicacion app) {
         // esto es desde la app
-        if(!this.hayEstacionamientoVigente(app.getPatente())) {
+        if(!(this.hayEstacionamientoVigente( app.getPatente() ) ) ) {
             Estacionamiento e = new EstacionamientoApp(notificador, app);
             estacionamientos.add(e);
         }
+    }
+    
+    
+    public HashSet<Estacionamiento> getEstacionamientos(){
+    	return this.estacionamientos;
     }
 
     public void finalizarEstacionamiento(String numeroTel) {
