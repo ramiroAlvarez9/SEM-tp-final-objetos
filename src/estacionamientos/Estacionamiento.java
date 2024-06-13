@@ -1,8 +1,8 @@
 package estacionamientos;
 
-import notificaciones.FinEstacionamiento;
+import notificaciones.NotificacionFinEstacionamiento;
 import notificaciones.INotificacion;
-import notificaciones.InicioEstacionamiento;
+import notificaciones.NotificacionInicioEstacionamiento;
 import notificaciones.Notificador;
 import sistema.SEM;
 
@@ -24,7 +24,7 @@ public abstract class Estacionamiento {
         this.inicio = LocalTime.now();
         this.estado = EstadoDeEstacionamiento.Vigente;
 
-        INotificacion INotificacion = new InicioEstacionamiento(patente, inicio);
+        INotificacion INotificacion = new NotificacionInicioEstacionamiento(patente, inicio);
         notificador.notificar(patente, INotificacion);
     }
 
@@ -58,7 +58,7 @@ public abstract class Estacionamiento {
     }
 
     public void finalizar(SEM sem, Notificador notificador) {
-        INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
+        INotificacion INotificacion = new NotificacionFinEstacionamiento(patente, fin, costo());
         notificador.notificar(patente, INotificacion);
         this.estado = EstadoDeEstacionamiento.NoVigente;
     }

@@ -2,12 +2,12 @@ package notificaciones;
 
 import java.time.LocalTime;
 
-public class FinEstacionamiento implements INotificacion {
+public class NotificacionFinEstacionamiento implements INotificacion {
     private final String patente;
     private final LocalTime horaFin;
     private final Double costo;
 
-    public FinEstacionamiento(String patente, LocalTime horaFin, Double costo) {
+    public NotificacionFinEstacionamiento(String patente, LocalTime horaFin, Double costo) {
         this.patente = patente;
         this.horaFin = horaFin;
         this.costo = costo;

@@ -2,11 +2,11 @@ package notificaciones;
 
 import java.time.LocalTime;
 
-public class InicioEstacionamiento implements INotificacion {
+public class NotificacionInicioEstacionamiento implements INotificacion {
     private final String patente;
     private final LocalTime horaInicio;
 
-    public InicioEstacionamiento(String patente, LocalTime horaInicio) {
+    public NotificacionInicioEstacionamiento(String patente, LocalTime horaInicio) {
         this.patente = patente;
         this.horaInicio = horaInicio;
     }

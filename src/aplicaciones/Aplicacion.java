@@ -81,11 +81,11 @@ public class Aplicacion implements MovementSensor, INotificado {
     public void update(INotificacion notificacion) {
         // solo notifica en modo automatico?
         switch (notificacion) {
-            case InicioEstacionamiento inicioEstacionamiento -> {
+            case NotificacionInicioEstacionamiento inicioEstacionamiento -> {
                 inicioEstacionamiento.informar();
             }
 
-            case FinEstacionamiento finEstacionamiento -> {
+            case NotificacionFinEstacionamiento finEstacionamiento -> {
                 finEstacionamiento.informar();
             }
 

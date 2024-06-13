@@ -1,7 +1,7 @@
 package estacionamientos;
 
 import aplicaciones.Aplicacion;
-import notificaciones.FinEstacionamiento;
+import notificaciones.NotificacionFinEstacionamiento;
 import notificaciones.INotificacion;
 import notificaciones.Notificador;
 import sistema.SEM;
@@ -27,7 +27,7 @@ public class EstacionamientoApp extends Estacionamiento {
         sem.restarCredito(numeroTel, costo());
         
         this.estado = EstadoDeEstacionamiento.NoVigente;
-        INotificacion INotificacion = new FinEstacionamiento(patente, fin, costo());
+        INotificacion INotificacion = new NotificacionFinEstacionamiento(patente, fin, costo());
         notificador.notificar(numeroTel, INotificacion);
      
     }

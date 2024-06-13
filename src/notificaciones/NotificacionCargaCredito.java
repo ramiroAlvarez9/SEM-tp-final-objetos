@@ -1,9 +1,9 @@
 package notificaciones;
 
-public class CargaCredito implements INotificacion {
+public class NotificacionCargaCredito implements INotificacion {
     private final Double credito;
 
-    public CargaCredito(Double credito) {
+    public NotificacionCargaCredito(Double credito) {
         this.credito = credito;
     }
 
