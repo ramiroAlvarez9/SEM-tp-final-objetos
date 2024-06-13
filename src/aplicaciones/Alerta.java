@@ -1,0 +1,8 @@
+package aplicaciones;
+
+public enum Alerta {
+	INICIO_ESTACIONAMIENTO,
+	FIN_ESTACIONAMIENTO,
+	RECORDATORIO_DE_ALERTAS;
+	
+}

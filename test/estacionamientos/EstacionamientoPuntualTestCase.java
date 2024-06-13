@@ -35,7 +35,7 @@ class EstacionamientoPuntualTestCase {
 		
 		assertEquals(estacionamientoPuntual.getFin().getHour(), LocalTime.now().plusHours(1).getHour());
 		
-		assertEquals(estacionamientoPuntual.costo(), 40);
+		assertEquals( 40.0, estacionamientoPuntual.costo() );
 	}
 	
 	@Test

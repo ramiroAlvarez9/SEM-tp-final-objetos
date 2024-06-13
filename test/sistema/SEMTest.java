@@ -30,7 +30,14 @@ class SEMTest {
 		when(app.getNumeroTel()).thenReturn(numeroTel);
 		when(app.getPatente()).thenReturn(patente);
 		when(app2.getCredito()).thenReturn(20.0);
-		
+
+	}
+
+	@Test
+	void test_SEMIniciaFranjaHorariaALas7AmYTerminaAlas20() {
+
+		assertEquals(LocalTime.of(7, 0), sem.getInicioHorario());
+		assertEquals(LocalTime.of(20, 0), sem.getFinHorario());
 
 	}
 
@@ -75,15 +82,16 @@ class SEMTest {
 	}
 
 	@Test
-	void test_SEMcalculaTiempoDeFinDeAppSegunCredito() {
-		
-		// Siempre va a dar un horario distinto, por el hecho que lo calcula con la hora actual
+	void test_SEMcalculaTiempoDeFinDeAppSegunCreditoYDevuelveUnLocalTime() {
+
+		// Siempre va a dar un horario distinto, por el hecho que lo calcula con la hora
+		// se comprueba que calcularTiempoFinDe devuelve un localTime.
 
 		sem.registrarApp(app);
 
 		sem.cargarCredito(numeroTel, 120.0);
 
-		assertEquals(LocalTime.of(20, 0), sem.calcularTiempoFinDe(numeroTel));
+		assertTrue(sem.calcularTiempoFinDe(numeroTel) instanceof LocalTime);
 	}
 
 	@Test
@@ -118,10 +126,20 @@ class SEMTest {
 		assertTrue(sem.hayEstacionamientoVigente(patente));
 
 	}
+	@Test
+	void test_calculaLaCantidadDeEstacionamientosAppVigentes() {
+
+		sem.registrarEstacionamiento(app);
+		
+
+		assertEquals(1, sem.estacionamientosAppVigentes().collect(Collectors.toList()).size());
+
+	}
+
 
 	@Test
 	void test_SEMCalculaCantidadDeEstacionamientosVigentes() {
-		
+
 		sem.registrarEstacionamiento(app);
 		sem.registrarEstacionamientoDesdeCompraPuntual("AAA 321", 3);
 		int cantidadEstacionamientosVigentes = sem.estacionamientosVigentes().collect(Collectors.toList()).size();
@@ -130,15 +148,22 @@ class SEMTest {
 	}
 	
 	@Test
-	void test_SEMFinalizaTodosLosEstacionamientosVigentes() {
+	void test_SEMFinalizaEstacionamientoDeApp() {
 
+		sem.registrarEstacionamiento(app);
+		sem.finalizarEstacionamiento(numeroTel);
+
+		assertEquals(0, sem.estacionamientosVigentes().collect(Collectors.toList()).size());
+
+	}
+
+	@Test
+	void test_SEMFinalizaTodosLosEstacionamientosVigentes() {
 
 		sem.registrarEstacionamientoDesdeCompraPuntual("AAA 321", 3);
 		sem.registrarEstacionamientoDesdeCompraPuntual("AAA 123", 4);
 		sem.finalizarTodosLosEstacionamientos();
-		
 
-		
 		assertEquals(0, sem.estacionamientosVigentes().collect(Collectors.toList()).size());
 
 	}

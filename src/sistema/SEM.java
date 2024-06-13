@@ -53,7 +53,7 @@ public class SEM {
     }
     
     public Double getCredito(String numeroTel) {
-        return creditos.get(numeroTel);
+        return creditos.getOrDefault(numeroTel,0.0);
     }
 
     public void cargarCredito(String numeroTel, Double credito) {
@@ -73,6 +73,7 @@ public class SEM {
         return tiempoCalculado;
     }
 
+    
     public ZonaDeEstacionamiento encontrarZona(Point coord) {
         // filtrar zona por coordenar
         return zonas.stream().findAny().orElseThrow();

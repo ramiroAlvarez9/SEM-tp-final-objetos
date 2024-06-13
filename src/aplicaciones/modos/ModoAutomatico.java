@@ -6,6 +6,7 @@ import estacionamientos.EstadoDeEstacionamiento;
 public class ModoAutomatico extends Modo {
 
 	public void driving(Aplicacion app) {
+		
 		if(app.getEstado() == EstadoDeEstacionamiento.Vigente){
 			finalizarEstacionamiento(app);
 		}

@@ -34,7 +34,9 @@ class InspectorTest {
 	@Test
 	void testEstacionamientoConPatente_EstaVigente() {
 		
-7		when(estacionamiento.esVigente()).thenReturn(true);
+		when(sem.estacionamientoConPatente("123")).thenReturn(estacionamiento);
+
+		when(estacionamiento.esVigente()).thenReturn(true);
 		
 		boolean respuesta = inspector.consultaEstacionamientoVigente("123");
 		
