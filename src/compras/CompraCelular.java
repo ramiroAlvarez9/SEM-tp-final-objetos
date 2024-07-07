@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import sistema.PuntoDeVenta;
 
 public class CompraCelular extends Compra {
-	
     private String numeroTel;
     private double monto;
 
@@ -15,15 +14,12 @@ public class CompraCelular extends Compra {
         this.numeroTel = numeroTel;
         this.monto = monto;
     }
-    
-    public PuntoDeVenta getPuntoDeVenta() {
-    	return this.puntoDeVenta;
-    }
-    
+
     @Override
     public String getNumeroTel() {
         return this.numeroTel;
     }
+
     @Override
     public double getMonto() {
         return this.monto;

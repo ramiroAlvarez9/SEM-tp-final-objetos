@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import sistema.PuntoDeVenta;
 
 public class CompraHora extends Compra {
-	private int cantHoras;
+	private final int cantHoras;
 
 	public CompraHora(LocalDate fecha, LocalTime hora, int cantHoras, PuntoDeVenta puntoDeVenta) {
 		super(fecha, hora, puntoDeVenta);
@@ -16,8 +16,4 @@ public class CompraHora extends Compra {
 	public int getCantHoras() {
 		return this.cantHoras;
 	}
-
-
-	
-
 }

@@ -1,40 +1,41 @@
 package aplicaciones;
 
+import aplicaciones.estados.EstadoDeEstacionamiento;
+import aplicaciones.estados.EstadoNoVigente;
+import aplicaciones.estados.EstadoVigente;
 import aplicaciones.modos.Modo;
 import aplicaciones.modos.ModoManual;
-import estacionamientos.EstadoDeEstacionamiento;
-import notificaciones.*;
 import sistema.SEM;
 
 import java.time.LocalTime;
 
-public class Aplicacion implements MovementSensor, INotificado {
+public class Aplicacion implements MovementSensor {
 	private final SEM sem;
 	private final String patente;
 	private final String numeroTel;
 	private EstadoDeEstacionamiento estado;
 	private Modo modo;
-	private GPS gps;
-	
+	private final GPS gps;
 
 	public Aplicacion(SEM sem, String patente, String numeroTel) {
 		this.sem = sem;
 		this.patente = patente;
 		this.numeroTel = numeroTel;
 		this.modo = new ModoManual();
-		this.estado = EstadoDeEstacionamiento.NoVigente;
+		this.estado = new EstadoNoVigente();
 		this.gps = new GPS();
+
 		sem.registrarApp(this);
 	}
 
 	public void iniciarEstacionamiento() {
-		modo.iniciarEstacionamiento(this);
-		this.estado = EstadoDeEstacionamiento.Vigente;
+		sem.registrarEstacionamiento(this);
+		this.estado = new EstadoVigente();
 	}
 
 	public void finalizarEstacionamiento() {
-		modo.finalizarEstacionamiento(this);
-		this.estado = EstadoDeEstacionamiento.NoVigente;
+		sem.finalizarEstacionamiento(numeroTel);
+		this.estado = new EstadoNoVigente();
 	}
 
 	public boolean hayEstacionamientoVigente() {
@@ -71,11 +72,9 @@ public class Aplicacion implements MovementSensor, INotificado {
 
 	@Override
 	public void driving() {
-		
 		modo.driving(this);
 		
-		if ( gps.estaEnZonaDeEstacionamiento() && (this.estado).equals(EstadoDeEstacionamiento.Vigente) ) 
-		{
+		if (gps.estaEnZonaDeEstacionamiento()) {
 			this.recibirAlertaDeFinEstacionamiento();
 		}
 	}
@@ -84,30 +83,16 @@ public class Aplicacion implements MovementSensor, INotificado {
 	public void walking() {
 		modo.walking(this);
 		
-		if ( gps.estaEnZonaDeEstacionamiento() && (this.estado).equals(EstadoDeEstacionamiento.NoVigente) ) 
-		{
+		if (gps.estaEnZonaDeEstacionamiento()) {
 			this.recibirAlertaDeInicioEstacionamiento();
 		} 
 	}
 	
-	
 	public Alerta recibirAlertaDeInicioEstacionamiento() {
 		return Alerta.INICIO_ESTACIONAMIENTO;
 	}
+
 	public Alerta recibirAlertaDeFinEstacionamiento() {
 		return Alerta.FIN_ESTACIONAMIENTO;
-	}
-
-	@Override
-	public void update(INotificacion notificacion) {
-		if (notificacion instanceof NotificacionInicioEstacionamiento) {
-			NotificacionInicioEstacionamiento inicioEstacionamiento = (NotificacionInicioEstacionamiento) notificacion;
-			inicioEstacionamiento.informar();
-		} else if (notificacion instanceof NotificacionFinEstacionamiento) {
-			NotificacionFinEstacionamiento finEstacionamiento = (NotificacionFinEstacionamiento) notificacion;
-			finEstacionamiento.informar();
-		} else {
-			notificacion.informar();
-		}
 	}
 }

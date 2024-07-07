@@ -11,57 +11,36 @@ import aplicaciones.Aplicacion;
 class NotificadorTestCase {
 
 	private Notificador notificador;
-	private INotificado entidad;
+	private Entidad entidad;
 	private Aplicacion app;
 	private Aplicacion app2;
-	private INotificacion notificacion;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		
-		notificacion = mock(INotificacion.class);
-		entidad = mock(INotificado.class);
+		entidad = mock(Entidad.class);
 		app = mock(Aplicacion.class);
 		app2 = mock(Aplicacion.class);
 		notificador = new Notificador();
-	}
-	
-	@Test
-	void testNotificarEntidades() {
+
 		notificador.suscribir(entidad);
-		notificador.notificar(notificacion);
-		
-		assertTrue(notificador.getEntidades().contains(entidad));
-		verify(entidad).update(notificacion);
-	}
-	
-	@Test
-	void testNoRecibeNotificacionLaEntidad() {
-		notificador.suscribir(entidad);
-		notificador.desuscribir(entidad);
-		notificador.notificar(notificacion);
-		
-		assertFalse(notificador.getEntidades().contains(entidad));
-		verify(entidad, never()).update(notificacion);
-	}
-	
-	@Test
-	void testNotificarApps() {
-		notificador.suscribir("123",app);
-		notificador.suscribir("456",app2);
-		notificador.notificar("123", notificacion);	
-		
-		verify(app).update(notificacion);
-		verify(app2, never()).update(notificacion);	
-	}
-	
-	@Test
-	void testNoRecibeNotificacionLaApp() {
-		notificador.suscribir("123",app);
-		notificador.desuscribir("123",app);
-		notificador.notificar("123", notificacion);	
-	
-		verify(app, never()).update(notificacion);	
+
 	}
 
+	/*
+	test1:
+		sem.crearEstacionamiento -> hace notificacion
+		assert notificador.notificarInicioEstacionamiento()
+		assert entidad uso inicioEstacionamiento(patente, horaInicio);
+
+	test2:
+		sem.cargarCredito -> hace notificacion
+		assert notificador.notificarCargaCredito()
+		assert entidad uso cargaCredito(nuevoCredito);
+
+	test1:
+		sem.crearEstacionamiento -> hace notificacion
+		assert notificador.notificarFinEstacionamiento()
+		assert entidad uso finEstacionamiento(patente, horaInicio, costo);
+
+	 */
 }

@@ -2,10 +2,10 @@ package aplicaciones;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import aplicaciones.estados.EstadoNoVigente;
+import aplicaciones.estados.EstadoVigente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import estacionamientos.EstadoDeEstacionamiento;
 
 import static org.mockito.Mockito.*;
 
@@ -13,19 +13,15 @@ import java.time.LocalTime;
 
 import sistema.*;
 import aplicaciones.modos.*;
-import notificaciones.*;
 
 class AplicacionTestCase {
 
 	private Aplicacion app;
 	private SEM sem;
 	private Modo modo;
-	private INotificacion notificacion;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		
-		notificacion = mock(INotificacion.class);
 		modo = mock(Modo.class);
 		sem = mock(SEM.class);
 		app = new Aplicacion(sem, "ABC153", "12345");
@@ -38,7 +34,7 @@ class AplicacionTestCase {
 	
 		when(sem.hayEstacionamientoVigente("ABC153")).thenReturn(true);
 		
-		assertEquals(app.getEstado(), EstadoDeEstacionamiento.Vigente);
+		assertInstanceOf(EstadoVigente.class, app.getEstado());
 		assertTrue(app.hayEstacionamientoVigente());
 		
 	}
@@ -67,8 +63,7 @@ class AplicacionTestCase {
 		
 		app.finalizarEstacionamiento();
 		assertFalse(app.hayEstacionamientoVigente());
-		assertEquals(app.getEstado(), EstadoDeEstacionamiento.NoVigente);
-		
+		assertInstanceOf(EstadoNoVigente.class, app.getEstado());
 	}
 	
 	@Test
@@ -86,29 +81,4 @@ class AplicacionTestCase {
 		
 		verify(this.modo).driving(app);
 	}
-	
-	@Test
-	void testUpdateDefault() {
-		app.update(notificacion);
-		
-		verify(notificacion).informar();
-	}
-	
-	@Test
-	void testUpdateInicioEstacionamiento() {
-		notificacion = mock(NotificacionInicioEstacionamiento.class);
-		
-		app.update(notificacion);
-		verify(notificacion).informar();
-	}
-	
-	@Test
-	void testUpdateFinEstacionamiento() {
-		notificacion = mock(NotificacionFinEstacionamiento.class);
-		
-		app.update(notificacion);
-		verify(notificacion).informar();
-	}
-	
-	
 }

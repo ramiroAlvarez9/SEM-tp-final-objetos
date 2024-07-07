@@ -35,20 +35,15 @@ public abstract class Compra {
 		return puntoDeVenta;
 	}
 
-	// Hook method
 	public String getNumeroTel() {
-		// TODO Auto-generated method stub
 		return null;
-	};
+	}
 
-	// Hook method
 	public double getMonto() {
-		return 0;
-	};
-	
-	//Hook method
-	public int getCantHoras() {
 		return 0;
 	}
 
+	public int getCantHoras() {
+		return 0;
+	}
 }

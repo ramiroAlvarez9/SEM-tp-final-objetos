@@ -10,7 +10,7 @@ import java.util.List;
 public class PuntoDeVenta {
 
 	private final SEM sem;
-	private List<Compra> comprasRealizadas = new ArrayList<Compra>();
+	private final List<Compra> comprasRealizadas = new ArrayList<Compra>();
 
 	public PuntoDeVenta(SEM sem) {
 		this.sem = sem;

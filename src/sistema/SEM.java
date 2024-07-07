@@ -4,7 +4,6 @@ import aplicaciones.Aplicacion;
 import estacionamientos.Estacionamiento;
 import estacionamientos.EstacionamientoApp;
 import estacionamientos.EstacionamientoPuntual;
-import notificaciones.NotificacionCargaCredito;
 import notificaciones.Notificador;
 
 import java.awt.*;
@@ -20,9 +19,9 @@ public class SEM {
     private static final LocalTime finHorario = LocalTime.of(20, 0);
     private final Notificador notificador;
 
-    private HashSet<Estacionamiento> estacionamientos;
-    private HashSet<ZonaDeEstacionamiento> zonas;
-    private HashMap<String, Double> creditos;
+    private final HashSet<Estacionamiento> estacionamientos;
+    private final HashSet<ZonaDeEstacionamiento> zonas;
+    private final HashMap<String, Double> creditos;
 
     public SEM() {
         this.zonas = new HashSet<>();
@@ -45,9 +44,8 @@ public class SEM {
 
     public void registrarApp(Aplicacion app) {
         creditos.put(app.getNumeroTel(), 0.0);
-        notificador.suscribir(app.getNumeroTel(), app);
-        notificador.suscribir(app.getPatente(), app);
     }
+
     public HashMap<String, Double> getApps() {
     	return this.creditos; 
     }
@@ -58,7 +56,7 @@ public class SEM {
 
     public void cargarCredito(String numeroTel, Double credito) {
         creditos.put(numeroTel, getCredito(numeroTel) + credito);
-        notificador.notificar(new NotificacionCargaCredito(credito));
+        notificador.notificarCredito(credito);
     }
 
     public void restarCredito(String numeroTel, Double costo) {
@@ -66,13 +64,9 @@ public class SEM {
     }
 
     public LocalTime calcularTiempoFinDe(String numeroTel) {
-    	
         Double credito = this.getCredito(numeroTel);
-        LocalTime tiempoCalculado = LocalTime.now().plusHours((long) (credito / precioPorHora));
-        
-        return tiempoCalculado;
+        return LocalTime.now().plusHours((long) (credito / precioPorHora));
     }
-
     
     public ZonaDeEstacionamiento encontrarZona(Point coord) {
         // filtrar zona por coordenar
@@ -92,8 +86,7 @@ public class SEM {
             estacionamientos.add(e);
         }
     }
-    
-    
+
     public HashSet<Estacionamiento> getEstacionamientos(){
     	return this.estacionamientos;
     }

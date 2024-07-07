@@ -1,8 +1,5 @@
 package estacionamientos;
 
-import notificaciones.NotificacionFinEstacionamiento;
-import notificaciones.INotificacion;
-import notificaciones.NotificacionInicioEstacionamiento;
 import notificaciones.Notificador;
 import sistema.SEM;
 
@@ -17,15 +14,14 @@ public abstract class Estacionamiento {
     protected final String patente;
     private final LocalTime inicio;
     protected LocalTime fin;
-    protected EstadoDeEstacionamiento estado;
+    protected boolean esVigente;
 
     public Estacionamiento(Notificador notificador, String patente) {
         this.patente = patente;
         this.inicio = LocalTime.now();
-        this.estado = EstadoDeEstacionamiento.Vigente;
+        this.esVigente = true;
 
-        INotificacion INotificacion = new NotificacionInicioEstacionamiento(patente, inicio);
-        notificador.notificar(patente, INotificacion);
+        notificador.notificarInicioEstacionamiento(patente, inicio);
     }
 
     public LocalTime calcularTiempoDentroDe(int horas) {
@@ -58,15 +54,12 @@ public abstract class Estacionamiento {
     }
 
     public void finalizar(SEM sem, Notificador notificador) {
-        INotificacion INotificacion = new NotificacionFinEstacionamiento(patente, fin, costo());
-        notificador.notificar(patente, INotificacion);
-        this.estado = EstadoDeEstacionamiento.NoVigente;
+        notificador.notificarFinEstacionamiento(patente, fin, costo());
+        this.esVigente = false;
     }
-    
-    public boolean esVigente() {
-    	return this.estado == EstadoDeEstacionamiento.Vigente;
-    }
-  
 
+    public boolean esVigente() {
+    	return this.esVigente;
+    }
 }
 
