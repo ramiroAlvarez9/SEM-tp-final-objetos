@@ -10,6 +10,10 @@ public class Notificador {
         this.entidades = new HashSet<>();
     }
 
+    public HashSet<Entidad> getEntidades(){
+    	return entidades;
+    }
+    
 	public void suscribir(Entidad notificado) {
         entidades.add(notificado);
     }
