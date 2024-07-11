@@ -29,12 +29,10 @@ public class Aplicacion implements MovementSensor {
 	}
 
 	public void iniciarEstacionamiento() {
-		this.modo.iniciarEstacionamiento(this);
 		this.estado.iniciarEstacionamiento(this);
 	}
 
 	public void finalizarEstacionamiento() {
-		this.modo.finalizarEstacionamiento(this);
 		this.estado.finalizarEstacionamiento(this);
 	}
 

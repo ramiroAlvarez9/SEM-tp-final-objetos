@@ -7,5 +7,6 @@ public class EstadoVigente implements EstadoDeEstacionamiento {
 
     public void finalizarEstacionamiento(Aplicacion app) {
         app.setEstado(new EstadoNoVigente());
+        app.getSem().finalizarEstacionamiento(app.getNumeroTel());
     }
 }
