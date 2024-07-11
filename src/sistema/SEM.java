@@ -74,13 +74,11 @@ public class SEM {
     }
 
     public void registrarEstacionamientoDesdeCompraPuntual(String patente, int horas) {
-        // esto es para compra fija
         Estacionamiento e = new EstacionamientoPuntual(notificador, patente, horas);
         estacionamientos.add(e);
     }
 
     public void registrarEstacionamiento(Aplicacion app) {
-        // esto es desde la app
         if(!(this.hayEstacionamientoVigente( app.getPatente() ) ) ) {
             Estacionamiento e = new EstacionamientoApp(notificador, app);
             estacionamientos.add(e);

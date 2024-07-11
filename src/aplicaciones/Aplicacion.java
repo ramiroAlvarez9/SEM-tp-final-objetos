@@ -2,7 +2,6 @@ package aplicaciones;
 
 import aplicaciones.estados.EstadoDeEstacionamiento;
 import aplicaciones.estados.EstadoNoVigente;
-import aplicaciones.estados.EstadoVigente;
 import aplicaciones.modos.Modo;
 import aplicaciones.modos.ModoManual;
 import sistema.SEM;
@@ -68,26 +67,20 @@ public class Aplicacion implements MovementSensor {
 		return this.sem;
 	}
 
+	public GPS getGPS() {
+		return this.gps;
+	}
+
 	public void setModo(Modo modo) {
 		this.modo = modo;
 	}
 
-	@Override
 	public void driving() {
 		modo.driving(this);
-		
-		if (gps.estaEnZonaDeEstacionamiento()) {
-			this.recibirAlertaDeFinEstacionamiento();
-		}
 	}
 
-	@Override
 	public void walking() {
 		modo.walking(this);
-		
-		if (gps.estaEnZonaDeEstacionamiento()) {
-			this.recibirAlertaDeInicioEstacionamiento();
-		} 
 	}
 	
 	public Alerta recibirAlertaDeInicioEstacionamiento() {
