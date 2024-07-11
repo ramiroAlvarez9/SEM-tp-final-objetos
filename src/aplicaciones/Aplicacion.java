@@ -29,13 +29,13 @@ public class Aplicacion implements MovementSensor {
 	}
 
 	public void iniciarEstacionamiento() {
-		sem.registrarEstacionamiento(this);
-		this.estado = new EstadoVigente();
+		this.modo.iniciarEstacionamiento(this);
+		this.estado.iniciarEstacionamiento(this);
 	}
 
 	public void finalizarEstacionamiento() {
-		sem.finalizarEstacionamiento(numeroTel);
-		this.estado = new EstadoNoVigente();
+		this.modo.finalizarEstacionamiento(this);
+		this.estado.finalizarEstacionamiento(this);
 	}
 
 	public boolean hayEstacionamientoVigente() {
@@ -60,6 +60,10 @@ public class Aplicacion implements MovementSensor {
 
 	public EstadoDeEstacionamiento getEstado() {
 		return estado;
+	}
+	
+	public void setEstado(EstadoDeEstacionamiento estado) {
+		this.estado = estado;
 	}
 
 	public SEM getSem() {
